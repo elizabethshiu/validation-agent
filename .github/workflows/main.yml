@@ -8,5 +8,3 @@ jobs:
       - name: Hello world action step
         id: hello
         uses: elizabethshiu/validation-agent@main
-        with:
-          who-to-greet: 'Mona the Octocat'
