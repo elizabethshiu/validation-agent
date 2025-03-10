@@ -29,6 +29,6 @@ service:
       processors: [batch]
       exporters: [otlp]
     logs:
-      receivers: []
+      receivers: [otlp]
       processors: [batch]
       exporters: [otlp]
