@@ -21,9 +21,9 @@ service:
   extensions: [health_check, pprof, zpages]
   pipelines:
     traces:
-      receivers: [otlp]
+      receivers: []
       processors: [batch]
-      exporters: []
+      exporters: [otlp]
     metrics:
       receivers: [otlp]
       processors: [batch]

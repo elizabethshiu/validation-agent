@@ -8,7 +8,9 @@ RUN chmod +x /collector/collector-installer.sh
 # running installer with mock endpoint and key since don't actually need to collect data
 RUN /collector/collector-installer.sh -s -e localhost:0000 -a 1234
 
-ENTRYPOINT ["/opt/instana/collector/bin/instana-otelcol", "validate", "--config"]
-CMD ["/etc/otel/config.yaml"]
+# ENTRYPOINT ["/opt/instana/collector/bin/instana-otelcol", "validate", "--config"]
+# CMD ["/etc/otel/config.yaml"]
+
+RUN /opt/instana/collector/bin/instana-otelcol validate --config /etc/otel/config.yaml
 
 
