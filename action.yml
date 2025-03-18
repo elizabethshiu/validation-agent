@@ -8,7 +8,7 @@ inputs:
     default:
 runs:
   using: 'docker'
-  image: '/validation/image/Dockerfile'
+  image: 'Dockerfile'
   args:
     - ${{inputs.validation-distribution}}
 
