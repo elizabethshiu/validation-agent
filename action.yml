@@ -1,7 +1,14 @@
 # action.yml
 name: 'Collector Config Validation'
 description: 'Testing Github Actions for validating OTel collector configuration files'
+inputs:
+  validation-distribution:
+    description: distribution and version to run collector validation against
+    required: false
+    default:
 runs:
   using: 'docker'
-  image: 'Dockerfile'
+  image: '/validation/image/Dockerfile'
+  args:
+    - ${{inputs.validation-distribution}}
 
