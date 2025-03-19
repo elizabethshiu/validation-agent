@@ -12,11 +12,13 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Get changes
-        run: |
-          git diff --name-only ${{ github.event.before }} ${{ github.event.after }}
-          echo "distro=$(cat selected-distribution)" >> $GITHUB_OUTPUT
+      - name: Get distribution
+        id: selected-distro
+        run: echo "distro=$(cat selected-distribution)" >> $GITHUB_OUTPUT
+      - name: Test output
+        run: echo ${{ steps.selected-distro.outputs.distro}}
 
+          # git diff --name-only ${{ github.event.before }} ${{ github.event.after }}
 
   # config_validation_job:
   #   name: Collector Validation
