@@ -24,7 +24,7 @@ jobs:
     steps:
       - name: Build Docker container
         working-directory: validation
-        run: docker build validation -t collector-container-${{needs.get-selected-distribution.outputs.DISTRO}} --build-arg VERSION=${{needs.get-selected-distribution.outputs.DISTRO}} .
+        run: docker build -t collector-container-${{needs.get-selected-distribution.outputs.DISTRO}} --build-arg VERSION=${{needs.get-selected-distribution.outputs.DISTRO}} .
       - name: Run container
         run: docker run collector-container-${{needs.get-selected-distribution.outputs.DISTRO}}
 
