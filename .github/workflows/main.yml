@@ -1,12 +1,26 @@
 on:
   push:
-    paths:
-      - instana/**.yaml
+    # paths:
+    #   - instana/**.yaml
 
 jobs:
-  config_validation_job:
+  get-selected-distribution:
+    name: Get selected distribution
     runs-on: ubuntu-latest
-    name: collector-validation
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Get changes
+        run: |
+          git diff --name-only ${{ github.event.before }} ${{ github.event.after }}
+          echo "Diff between ${{ github.event.before }} and ${{ github.event.after }}"
+
+
+  config_validation_job:
+    name: Collector Validation
+    runs-on: ubuntu-latest
     steps:
       - name: Config validation docker step
         id: validation
