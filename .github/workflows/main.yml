@@ -14,8 +14,8 @@ jobs:
           fetch-depth: 0
       - name: Get changes
         run: |
-          git diff --name-only ${{ github.event.before }} ${{ github.event.after }}
-          echo "Diff between ${{ github.event.before }} and ${{ github.event.after }}"
+          git diff --word-diff ${{ github.event.before }} ${{ github.event.after }}
+
 
 
   # config_validation_job:
