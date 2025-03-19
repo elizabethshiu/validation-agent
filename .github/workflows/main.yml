@@ -3,20 +3,7 @@ on:
     # paths:
     #   - instana/**.yaml
 
-jobs:
-  get-selected-distribution:
-    name: Get selected distribution
-    runs-on: ubuntu-latest
-    outputs:
-      DISTRO: ${{ steps.selected-distro.outputs.distro }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - name: Get distribution
-        id: selected-distro
-        run: echo "DISTRO=$(cat selected-distribution)" >> $GITHUB_OUTPUT
+jobs:      
   config_validation_job:
     needs: get-selected-distribution
     name: Collector Validation
@@ -24,10 +11,13 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Get distribution
+        id: selected-distro
+        run: echo "DISTRO=$(cat selected-distribution)" >> $GITHUB_OUTPUT
       - name: Build Docker container
-        run: docker build -t collector-container-${{needs.get-selected-distribution.outputs.DISTRO}} -f Dockerfile --build-arg VERSION=${{needs.get-selected-distribution.outputs.DISTRO}} .
-      - name: Run container
-        run: docker run collector-container-${{needs.get-selected-distribution.outputs.DISTRO}}
+        run: docker build -t collector-container-${{steps.selected-distro.outputs.DISTRO}} -f validation/Dockerfile --build-arg VERSION=${{steps.selected-distro.outputs.DISTRO}} .
+      - name: Run validation
+        run: docker run collector-container-${{steps.selected-distro.outputs.DISTRO}}
 
 
   #     - name: Config validation docker step
