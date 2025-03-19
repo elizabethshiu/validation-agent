@@ -22,8 +22,10 @@ jobs:
     name: Collector Validation
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
       - name: Build Docker container
-        run: docker build -t collector-container-${{needs.get-selected-distribution.outputs.DISTRO}} --build-arg VERSION=${{needs.get-selected-distribution.outputs.DISTRO}} .
+        run: docker build -t collector-container-${{needs.get-selected-distribution.outputs.DISTRO}} -f Dockerfile --build-arg VERSION=${{needs.get-selected-distribution.outputs.DISTRO}} .
       - name: Run container
         run: docker run collector-container-${{needs.get-selected-distribution.outputs.DISTRO}}
 
