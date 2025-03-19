@@ -17,13 +17,17 @@ jobs:
         run: echo "distro=$(cat selected-distribution)" >> $GITHUB_OUTPUT
       - name: Test output
         run: echo ${{ steps.selected-distro.outputs.distro}}
+  config_validation_job:
+    needs: [get-selected-distribution]
+    name: Collector Validation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build Docker container
+        run: docker build -t collector-container-${{get-selected-distribution.selected-distro.outputs.distro}} -f validation/Dockerfile --build-arg VERSION=${{get-selected-distribution.selected-distro.outputs.distro}}
+      - name: Run container
+        run: docker run collector-container-${{get-selected-distribution.selected-distro.outputs.distro}}
 
-          # git diff --name-only ${{ github.event.before }} ${{ github.event.after }}
 
-  # config_validation_job:
-  #   name: Collector Validation
-  #   runs-on: ubuntu-latest
-  #   steps:
   #     - name: Config validation docker step
   #       id: validation
   #       uses: elizabethshiu/validation-agent@main
