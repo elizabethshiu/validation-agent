@@ -5,7 +5,6 @@ on:
 
 jobs:      
   config_validation_job:
-    needs: get-selected-distribution
     name: Collector Validation
     runs-on: ubuntu-latest
     steps:
