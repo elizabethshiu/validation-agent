@@ -1,16 +1,10 @@
-FROM redhat/ubi8
+ARG VERSION="latest"
 
-WORKDIR /collector
+FROM otel/opentelemetry-collector:$VERSION
+
 COPY ./instana/config.yaml /etc/otel/config.yaml
-COPY ./collector-installer.sh /collector/collector-installer.sh
 
-RUN chmod +x /collector/collector-installer.sh
-# running installer with mock endpoint and key since don't actually need to collect data
-RUN /collector/collector-installer.sh -s -e localhost:0000 -a 1234
-
-# ENTRYPOINT ["/opt/instana/collector/bin/instana-otelcol", "validate", "--config"]
-# CMD ["/etc/otel/config.yaml"]
-
-RUN /opt/instana/collector/bin/instana-otelcol validate --config /etc/otel/config.yaml
+ENTRYPOINT ["/otelcol"]
+CMD ["validate", "--config", "/etc/otel/config.yaml"]
 
 
