@@ -14,8 +14,8 @@ jobs:
           fetch-depth: 0
       - name: Get changes
         run: |
-          git whatchanged --diff-filter=A
-
+          git diff --name-only ${{ github.event.before }} ${{ github.event.after }}
+          echo "distro=$(cat selected-distribution)" >> $GITHUB_OUTPUT
 
 
   # config_validation_job:
