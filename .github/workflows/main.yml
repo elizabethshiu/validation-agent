@@ -14,7 +14,7 @@ jobs:
           fetch-depth: 0
       - name: Get changes
         run: |
-          git diff --word-diff ${{ github.event.before }} ${{ github.event.after }}
+          git whatchanged --diff-filter=A
 
 
 
