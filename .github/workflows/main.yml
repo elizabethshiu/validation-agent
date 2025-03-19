@@ -17,8 +17,6 @@ jobs:
       - name: Get distribution
         id: selected-distro
         run: echo "DISTRO=$(cat selected-distribution)" >> $GITHUB_OUTPUT
-      - name: Test output
-        run: echo ${pwd}
   config_validation_job:
     needs: get-selected-distribution
     name: Collector Validation
