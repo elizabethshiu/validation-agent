@@ -25,9 +25,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Build Docker container
-        run: docker build -t collector-container-${{needs.get-selected-distribution.selected-distro.outputs.DISTRO}} -f validation/Dockerfile --build-arg VERSION=${{needs.get-selected-distribution.selected-distro.outputs.DISTRO}}
+        run: docker build -t collector-container-${{needs.get-selected-distribution.outputs.DISTRO}} -f validation/Dockerfile --build-arg VERSION=${{needs.get-selected-distribution.outputs.DISTRO}}
       - name: Run container
-        run: docker run collector-container-${{needs.get-selected-distribution.selected-distro.outputs.DISTRO}}
+        run: docker run collector-container-${{needs.get-selected-distribution.outputs.DISTRO}}
 
 
   #     - name: Config validation docker step
