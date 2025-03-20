@@ -1,7 +1,7 @@
 on:
   push:
-    # paths:
-    #   - instana/**.yaml
+    paths:
+      - instana/**.yaml
 
 jobs:      
   config_validation_job:
